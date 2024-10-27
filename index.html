@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA PlayerBio</title>
+    <style>
+        table, th, td {
+            border: 1px solid white;
+            color: white;
+        }
+        body {
+            background-color: black;
+            color: white;
+        }
+        h1, h3 {
+            color: white;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>NBA PlayerBio</h1>
+
+    <form id="player-form">
+        <label for="playername">Enter a player's name:</label><br>
+        <input type="text" id="playername" name="playername" placeholder="e.g., Kevin Durant"><br>
+        <input type="submit" value="Search">
+    </form>
+
+    <h3>Matching Players</h3>
+    <table id="players-table">
+        <tr>
+            <th>Player Name</th>
+            <th>Position</th>
+            <th>Select</th>
+        </tr>
+        <!-- Matching players will be inserted here -->
+    </table>
+
+    <h3>Player Information</h3>
+    <table id="player-info-table">
+        <tr>
+            <th>Player Name</th>
+            <th>Position</th>
+            <th>Height</th>
+            <th>Weight</th>
+            <th>Team</th>
+            <th>Jersey Number</th>
+            <th>College</th>
+            <th>Draft Year</th>
+            <th>Draft Round</th>
+            <th>Draft Pick</th>
+        </tr>
+        <!-- Detailed player info will be inserted here -->
+    </table>
+
+    <!-- Link to external JavaScript file -->
+    <script src="nba_statmaker.js"></script>
+</body>
+</html>
