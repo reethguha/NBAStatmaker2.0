@@ -18,15 +18,11 @@ document.getElementById("player-form").addEventListener("submit", function(event
         </tr>
     `;
 
-    // Fetch matching players with Authorization header
-    fetch(`https://www.balldontlie.io/api/v1/players?search=${playerName}`, {
-        headers: {
-            "Authorization": API_KEY
-        }
-    })
+    // Fetch matching players from Flask backend
+    fetch(`http://127.0.0.1:5000/search_player?search=${playerName}`)
     .then(response => response.json())
     .then(data => {
-        if (data.data.length > 0) {
+        if (data.data && data.data.length > 0) {
             data.data.forEach((player, index) => {
                 // Create a row for each matching player
                 let playerRow = `
@@ -50,11 +46,7 @@ document.getElementById("player-form").addEventListener("submit", function(event
 
 // Fetch detailed player info and display in player info table
 function getPlayerInfo(playerId) {
-    fetch(`https://www.balldontlie.io/api/v1/players/${playerId}`, {
-        headers: {
-            "Authorization": API_KEY
-        }
-    })
+    fetch(`http://127.0.0.1:5000/get_player_info/${playerId}`)
     .then(response => response.json())
     .then(player => {
         // Clear the player info table and insert new details
@@ -72,16 +64,16 @@ function getPlayerInfo(playerId) {
                 <th>Draft Pick</th>
             </tr>
             <tr>
-                <td>${player.first_name} ${player.last_name}</td>
-                <td>${player.position ? player.position : 'N/A'}</td>
-                <td>${player.height_feet ? player.height_feet + '-' + player.height_inches : 'N/A'}</td>
-                <td>${player.weight_pounds ? player.weight_pounds + ' lbs' : 'N/A'}</td>
-                <td>${player.team ? player.team.full_name : 'N/A'}</td>
-                <td>${player.jersey_number ? player.jersey_number : 'N/A'}</td>
-                <td>${player.college ? player.college : 'N/A'}</td>
-                <td>${player.draft.year ? player.draft.year : 'N/A'}</td>
-                <td>${player.draft.round ? player.draft.round : 'N/A'}</td>
-                <td>${player.draft.pick ? player.draft.pick : 'N/A'}</td>
+                <td>${player["Player Name"]}</td>
+                <td>${player["Position"]}</td>
+                <td>${player["Height"]}</td>
+                <td>${player["Weight"]} lbs</td>
+                <td>${player["Team"]}</td>
+                <td>${player["Jersey Number"]}</td>
+                <td>${player["College"]}</td>
+                <td>${player["Draft Year"]}</td>
+                <td>${player["Draft Round"]}</td>
+                <td>${player["Draft Pick"]}</td>
             </tr>
         `;
     })
