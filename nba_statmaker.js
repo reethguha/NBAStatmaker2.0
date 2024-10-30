@@ -44,10 +44,14 @@ document.getElementById("player-form").addEventListener("submit", function(event
     });
 });
 
-// Fetch detailed player info and display in player info table
 function getPlayerInfo(playerId) {
     fetch(`http://127.0.0.1:5000/get_player_info/${playerId}`)
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return response.json();
+    })
     .then(player => {
         // Clear the player info table and insert new details
         document.getElementById("player-info-table").innerHTML = `
@@ -64,16 +68,15 @@ function getPlayerInfo(playerId) {
                 <th>Draft Pick</th>
             </tr>
             <tr>
-                <td>${player["Player Name"]}</td>
-                <td>${player["Position"]}</td>
-                <td>${player["Height"]}</td>
-                <td>${player["Weight"]} lbs</td>
-                <td>${player["Team"]}</td>
-                <td>${player["Jersey Number"]}</td>
-                <td>${player["College"]}</td>
-                <td>${player["Draft Year"]}</td>
-                <td>${player["Draft Round"]}</td>
-                <td>${player["Draft Pick"]}</td>
+                <td>${player.first_name} ${player.last_name}</td>
+                <td>${player.position}</td>
+                <td>${player.height}</td>
+                <td>${player.weight} lbs</td>
+                <td>${player.jersey_number}</td>
+                <td>${player.college}</td>
+                <td>${player.draft_year}</td>
+                <td>${player.draft_round}</td>
+                <td>${player.draft_number}</td>
             </tr>
         `;
     })
