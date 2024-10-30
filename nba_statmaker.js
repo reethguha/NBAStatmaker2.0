@@ -23,7 +23,7 @@ document.getElementById("player-form").addEventListener("submit", function(event
     .then(response => response.json())
     .then(data => {
         if (data.data && data.data.length > 0) {
-            data.data.forEach((player, index) => {
+            data.data.forEach((player) => {
                 // Create a row for each matching player
                 let playerRow = `
                     <tr>
@@ -44,11 +44,12 @@ document.getElementById("player-form").addEventListener("submit", function(event
     });
 });
 
+// Fetch detailed player info and display in player info table
 function getPlayerInfo(playerId) {
     fetch(`http://127.0.0.1:5000/get_player_info/${playerId}`)
     .then(response => {
         if (!response.ok) {
-            throw new Error("Network response was not ok");
+            throw new Error('Network response was not ok');
         }
         return response.json();
     })
@@ -69,14 +70,15 @@ function getPlayerInfo(playerId) {
             </tr>
             <tr>
                 <td>${player.first_name} ${player.last_name}</td>
-                <td>${player.position}</td>
-                <td>${player.height}</td>
-                <td>${player.weight} lbs</td>
-                <td>${player.jersey_number}</td>
-                <td>${player.college}</td>
-                <td>${player.draft_year}</td>
-                <td>${player.draft_round}</td>
-                <td>${player.draft_number}</td>
+                <td>${player.position ? player.position : 'N/A'}</td>
+                <td>${player.height ? player.height : 'N/A'}</td>
+                <td>${player.weight ? player.weight + ' lbs' : 'N/A'}</td>
+                <td>${player.team ? player.team.full_name : 'N/A'}</td>
+                <td>${player.jersey_number ? player.jersey_number : 'N/A'}</td>
+                <td>${player.college ? player.college : 'N/A'}</td>
+                <td>${player.draft_year ? player.draft_year : 'N/A'}</td>
+                <td>${player.draft_round ? player.draft_round : 'N/A'}</td>
+                <td>${player.draft_number ? player.draft_number : 'N/A'}</td>
             </tr>
         `;
     })
