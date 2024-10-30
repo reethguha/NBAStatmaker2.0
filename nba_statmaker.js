@@ -1,7 +1,7 @@
-const API_KEY = "b2b9782d-fa82-470f-9092-411c9a66a986"; // Your API key
+const API_KEY = "b2b9782d-fa82-470f-9092-411c9a66a986"; 
 
 document.getElementById("player-form").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the form from submitting traditionally
+    event.preventDefault(); 
 
     let playerName = document.getElementById("playername").value;
     if (playerName === "") {
@@ -18,13 +18,13 @@ document.getElementById("player-form").addEventListener("submit", function(event
         </tr>
     `;
 
-    // Fetch matching players from Flask backend
+    // Get players matching to player name requested by user and display
     fetch(`http://127.0.0.1:5000/search_player?search=${playerName}`)
     .then(response => response.json())
     .then(data => {
         if (data.data && data.data.length > 0) {
             data.data.forEach((player) => {
-                // Create a row for each matching player
+                
                 let playerRow = `
                     <tr>
                         <td>${player.first_name} ${player.last_name}</td>
@@ -44,7 +44,7 @@ document.getElementById("player-form").addEventListener("submit", function(event
     });
 });
 
-// Fetch detailed player info and display in player info table
+// Once specific player is selected, populate table with that player's information.
 function getPlayerInfo(playerId) {
     fetch(`http://127.0.0.1:5000/get_player_info/${playerId}`)
     .then(response => {
