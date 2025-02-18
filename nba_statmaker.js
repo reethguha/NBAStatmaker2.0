@@ -19,7 +19,7 @@ document.getElementById("player-form").addEventListener("submit", function(event
     `;
 
     // Get players matching to player name requested by user and display
-    fetch(`http://127.0.0.1:5000/search_player?search=${playerName}`)
+    fetch(`http://ec2-3-84-6-10.compute-1.amazonaws.com/search_player?search=${playerName}`)
     .then(response => response.json())
     .then(data => {
         if (data.data && data.data.length > 0) {
@@ -46,7 +46,7 @@ document.getElementById("player-form").addEventListener("submit", function(event
 
 // Once specific player is selected, populate table with that player's information.
 function getPlayerInfo(playerId) {
-    fetch(`http://127.0.0.1:5000/get_player_info/${playerId}`)
+    fetch(`http://ec2-3-84-6-10.compute-1.amazonaws.com/get_player_info/${playerId}`)
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
